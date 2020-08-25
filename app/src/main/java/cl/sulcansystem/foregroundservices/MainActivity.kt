@@ -34,7 +34,8 @@ class MainActivity : AppCompatActivity(), Handler.Callback {
     }
 
     override fun handleMessage(msg: Message): Boolean {
-        Log.d("Activity", "handleMessage ${msg.data}")
+        Log.d("Activity", "handleMessage ${msg.data.get("Contador")}")
+        binding.contador.text = msg.data.get("Contador").toString()
         return true
     }
 }

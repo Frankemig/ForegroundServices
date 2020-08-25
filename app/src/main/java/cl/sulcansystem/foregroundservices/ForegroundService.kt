@@ -20,6 +20,7 @@ class ForegroundService : Service() {
     private lateinit var mRunnable: Runnable
 
     companion object {
+        var contador = 0
         var running = false
         private lateinit var handlerCallback: Handler
 
@@ -107,8 +108,14 @@ class ForegroundService : Service() {
 
     private fun notifyNextEvent() {
         // Ocurre un evento en el servicio y se hace alguna acción
+        contador ++
         val message = handlerCallback.obtainMessage(1, "msg")
-        message.data.putString("Estado", "Tarea ejecutada con éxito")
+        message.data.putInt("Contador", contador)
         message.sendToTarget()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mHandler?.removeCallbacks(mRunnable)
     }
 }
